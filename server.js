@@ -65,7 +65,10 @@ app.get("/sensitive",(req,res)=>{
     res.send(`Sensitive Information is placed Here,Dear ${req.user.first_name}` );
 });
 
-app.get("/auth/signout",(req,res)=>{res.clearCookie("vkAuth").send("You logged In successfully")});
+app.get("/auth/signout",(req,res)=>{
+req.session.destroy();
+    res.clearCookie("vkAuth").json({success:true,message:"You logged In successfully"});
+});
 
 app.get("*",(req,res)=>{res.json(req.user)});
 
